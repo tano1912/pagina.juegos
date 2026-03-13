@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Catálogo de Juegos Nintendo</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Catálogo de Juegos Digitales</h1>
+<p>Nintendo 3DS y Nintendo Wii</p>
+
+</header>
+
+
+<section class="catalogo">
+
+<div class="consola">
+
+<h2>Nintendo 3DS</h2>
+
+<ul id="lista3ds"></ul>
+
+</div>
+
+
+<div class="consola">
+
+<h2>Nintendo Wii</h2>
+
+<ul id="listaWii"></ul>
+
+</div>
+
+</section>
+
+
+
+<section class="pedido">
+
+<h2>Solicitar Juego</h2>
+
+<input id="nombre" placeholder="Tu nombre">
+
+<select id="consola">
+
+<option>Nintendo 3DS</option>
+<option>Nintendo Wii</option>
+
+</select>
+
+<input id="telefono" placeholder="Número de teléfono">
+
+<input id="juego" placeholder="Juego que deseas">
+
+<button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+
+</section>
+
+
+
+<section class="panel" id="panel">
+
+<h2>Panel Administrador</h2>
+
+<select id="panelConsola">
+
+<option value="3ds">Nintendo 3DS</option>
+<option value="wii">Nintendo Wii</option>
+
+</select>
+
+<input id="nuevoJuego" placeholder="Nombre del juego">
+
+<button onclick="agregarJuego()">Agregar juego</button>
+
+<p>💡 Haz clic en un juego para eliminarlo</p>
+
+</section>
+
+
+<button class="adminBtn" onclick="loginAdmin()">⚙</button>
+
+<a class="whatsapp" href="https://wa.me/584247269993" target="_blank">💬</a>
+
+<script src="script.js"></script>
+
+</body>
+</html>
