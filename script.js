@@ -145,5 +145,35 @@ alert("Contraseña incorrecta");
 }
 
 }
+async function cargarJuegos(){
 
+let respuesta = await fetch("juegos.json");
+
+let datos = await respuesta.json();
+
+let lista3ds = document.getElementById("lista3ds");
+let listaWii = document.getElementById("listaWii");
+
+lista3ds.innerHTML="";
+listaWii.innerHTML="";
+
+datos.n3ds.forEach(juego=>{
+
+let li=document.createElement("li");
+li.textContent=juego;
+lista3ds.appendChild(li);
+
+});
+
+datos.wii.forEach(juego=>{
+
+let li=document.createElement("li");
+li.textContent=juego;
+listaWii.appendChild(li);
+
+});
+
+}
+
+cargarJuegos();
 mostrarJuegos();

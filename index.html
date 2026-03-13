@@ -87,6 +87,145 @@
 
 </section>
 
+<div class="game-container">
+<canvas id="game" width="800" height="200"></canvas>
+
+<div class="scoreboard">
+Puntos: <span id="score">0</span> | Record: <span id="highscore">0</span>
+</div>
+</div>
+
+<style>
+
+.game-container{
+text-align:center;
+margin-top:40px;
+}
+
+canvas{
+background:#87CEEB;
+border:3px solid black;
+max-width:100%;
+}
+
+.scoreboard{
+font-family:Arial;
+font-size:20px;
+margin-top:10px;
+}
+
+</style>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player = {
+x:50,
+y:150,
+width:40,
+height:40,
+vy:0,
+jumping:false
+};
+
+let gravity = 1.5;
+
+let obstacles = [];
+
+let score = 0;
+let highscore = localStorage.getItem("record") || 0;
+
+document.getElementById("highscore").textContent = highscore;
+
+function spawnObstacle(){
+obstacles.push({
+x:800,
+y:160,
+width:20,
+height:40
+});
+}
+
+setInterval(spawnObstacle,2000);
+
+function jump(){
+if(!player.jumping){
+player.vy = -18;
+player.jumping = true;
+}
+}
+
+document.addEventListener("keydown",e=>{
+if(e.code === "Space") jump();
+});
+
+canvas.addEventListener("touchstart",jump);
+
+function update(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+player.vy += gravity;
+player.y += player.vy;
+
+if(player.y >= 150){
+player.y = 150;
+player.jumping = false;
+}
+
+ctx.fillStyle="red";
+ctx.fillRect(player.x,player.y,player.width,player.height);
+
+for(let i=0;i<obstacles.length;i++){
+
+let o = obstacles[i];
+
+o.x -= 6;
+
+ctx.fillStyle="green";
+ctx.fillRect(o.x,o.y,o.width,o.height);
+
+if(
+player.x < o.x + o.width &&
+player.x + player.width > o.x &&
+player.y < o.y + o.height &&
+player.y + player.height > o.y
+){
+resetGame();
+}
+
+if(o.x + o.width < 0){
+obstacles.splice(i,1);
+score++;
+}
+
+}
+
+document.getElementById("score").textContent = score;
+
+requestAnimationFrame(update);
+
+}
+
+function resetGame(){
+
+if(score > highscore){
+highscore = score;
+localStorage.setItem("record",highscore);
+document.getElementById("highscore").textContent = highscore;
+}
+
+score = 0;
+obstacles = [];
+player.y = 150;
+
+}
+
+update();
+
+</script>
 
 <button class="adminBtn" onclick="loginAdmin()">⚙</button>
 
