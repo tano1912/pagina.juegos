@@ -44,7 +44,7 @@ function enviarPedido() {
     if(!nombre || !juego) return alert("Error: El nombre y el juego son obligatorios.");
 
     const msj = encodeURIComponent(`🎮 *GAME STATION - NUEVO PEDIDO*\n\n👤 *Cliente:* ${nombre}\n🕹️ *Juego:* ${juego}\n📱 *Contacto:* ${tel}`);
-    window.open(`https://wa.me/${miNumero}?text=${msj}`, '_blank');
+    window.open(`https://wa.me/${+584247269993}?text=${msj}`, '_blank');
 }
 
 window.onload = cargarGameStation;
