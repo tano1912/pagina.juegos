@@ -1,179 +1,50 @@
-let juegos3ds = JSON.parse(localStorage.getItem("juegos3ds")) || [
-"Mario Kart 7",
-"Pokemon X"
-];
+// Reloj digital en tiempo real
+function updateClock() {
+    const now = new Date();
+    const time = now.getHours().toString().padStart(2, '0') + ":" + 
+                 now.getMinutes().toString().padStart(2, '0');
+    document.getElementById('clock').textContent = time;
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-let juegosWii = JSON.parse(localStorage.getItem("juegosWii")) || [
-"Mario Kart Wii",
-"Wii Sports"
-];
+// Carga del catálogo
+async function cargarGameStation() {
+    try {
+        const respuesta = await fetch('juegos.json?v=' + Date.now());
+        const juegos = await respuesta.json();
+        
+        const lista3DS = document.getElementById('lista3DS');
+        const listaWii = document.getElementById('listaWii');
 
-let admin=false;
+        lista3DS.innerHTML = '';
+        listaWii.innerHTML = '';
 
-function mostrarJuegos(){
+        juegos.forEach(juego => {
+            const li = document.createElement('li');
+            li.textContent = juego.titulo;
 
-let lista3ds=document.getElementById("lista3ds");
-let listaWii=document.getElementById("listaWii");
-
-lista3ds.innerHTML="";
-listaWii.innerHTML="";
-
-juegos3ds.forEach((juego,index)=>{
-
-let li=document.createElement("li");
-
-li.textContent=juego;
-
-if(admin){
-
-li.onclick=()=>eliminarJuego("3ds",index);
-
+            if (juego.consola.toUpperCase() === '3DS') {
+                lista3DS.appendChild(li);
+            } else if (juego.consola.toUpperCase() === 'WII') {
+                listaWii.appendChild(li);
+            }
+        });
+    } catch (e) {
+        console.error("Error cargando base de datos.");
+    }
 }
 
-lista3ds.appendChild(li);
+function enviarPedido() {
+    const nombre = document.getElementById('waNombre').value;
+    const juego = document.getElementById('waJuego').value;
+    const tel = document.getElementById('waTel').value;
+    const miNumero = "123456789"; // TU NÚMERO AQUÍ
 
-});
+    if(!nombre || !juego) return alert("Error: El nombre y el juego son obligatorios.");
 
-juegosWii.forEach((juego,index)=>{
-
-let li=document.createElement("li");
-
-li.textContent=juego;
-
-if(admin){
-
-li.onclick=()=>eliminarJuego("wii",index);
-
+    const msj = encodeURIComponent(`🎮 *GAME STATION - NUEVO PEDIDO*\n\n👤 *Cliente:* ${nombre}\n🕹️ *Juego:* ${juego}\n📱 *Contacto:* ${tel}`);
+    window.open(`https://wa.me/${miNumero}?text=${msj}`, '_blank');
 }
 
-listaWii.appendChild(li);
-
-});
-
-}
-
-function agregarJuego(){
-
-let consola=document.getElementById("panelConsola").value;
-
-let juego=document.getElementById("nuevoJuego").value;
-
-if(juego==="") return;
-
-if(consola==="3ds"){
-
-juegos3ds.push(juego);
-
-localStorage.setItem("juegos3ds",JSON.stringify(juegos3ds));
-
-}
-
-if(consola==="wii"){
-
-juegosWii.push(juego);
-
-localStorage.setItem("juegosWii",JSON.stringify(juegosWii));
-
-}
-
-document.getElementById("nuevoJuego").value="";
-
-mostrarJuegos();
-
-}
-
-function eliminarJuego(consola,index){
-
-if(!confirm("¿Eliminar juego?")) return;
-
-if(consola==="3ds"){
-
-juegos3ds.splice(index,1);
-localStorage.setItem("juegos3ds",JSON.stringify(juegos3ds));
-
-}
-
-if(consola==="wii"){
-
-juegosWii.splice(index,1);
-localStorage.setItem("juegosWii",JSON.stringify(juegosWii));
-
-}
-
-mostrarJuegos();
-
-}
-
-function enviarWhatsApp(){
-
-let nombre=document.getElementById("nombre").value;
-
-let consola=document.getElementById("consola").value;
-
-let telefono=document.getElementById("telefono").value;
-
-let juego=document.getElementById("juego").value;
-
-let mensaje="Hola quiero descargar un juego:%0A"+
-"Nombre: "+nombre+"%0A"+
-"Consola: "+consola+"%0A"+
-"Telefono: "+telefono+"%0A"+
-"Juego: "+juego;
-
-let url="https://wa.me/584247269993?text="+mensaje;
-
-window.open(url,"_blank");
-
-}
-
-function loginAdmin(){
-
-let clave=prompt("Contraseña administrador");
-
-if(clave==="admin123"){
-
-admin=true;
-
-document.getElementById("panel").style.display="block";
-
-mostrarJuegos();
-
-}else{
-
-alert("Contraseña incorrecta");
-
-}
-
-}
-async function cargarJuegos(){
-
-let respuesta = await fetch("juegos.json");
-
-let datos = await respuesta.json();
-
-let lista3ds = document.getElementById("lista3ds");
-let listaWii = document.getElementById("listaWii");
-
-lista3ds.innerHTML="";
-listaWii.innerHTML="";
-
-datos.n3ds.forEach(juego=>{
-
-let li=document.createElement("li");
-li.textContent=juego;
-lista3ds.appendChild(li);
-
-});
-
-datos.wii.forEach(juego=>{
-
-let li=document.createElement("li");
-li.textContent=juego;
-listaWii.appendChild(li);
-
-});
-
-}
-
-cargarJuegos();
-mostrarJuegos();
+window.onload = cargarGameStation;

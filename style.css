@@ -1,163 +1,144 @@
-body{
-
-font-family:Arial;
-margin:0;
-background:#f2f2f2;
-
+:root {
+    --primary: #e60012;
+    --dark-bg: #121212;
+    --card-bg: #ffffff;
+    --wii-blue: #00acee;
+    --text-main: #2d3436;
+    --glass: rgba(255, 255, 255, 0.9);
 }
 
-header{
-
-background:#e60012;
-color:white;
-text-align:center;
-padding:25px;
-
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    color: var(--text-main);
 }
 
-.catalogo{
-
-display:flex;
-justify-content:center;
-gap:40px;
-padding:30px;
-flex-wrap:wrap;
-
+/* Header Estilo Consola */
+.main-header {
+    background: var(--dark-bg);
+    color: white;
+    padding: 15px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--primary);
 }
 
-.consola{
-
-background:white;
-padding:20px;
-border-radius:10px;
-width:320px;
-box-shadow:0 4px 10px rgba(0,0,0,0.2);
-
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.consola h2{
-
-border-bottom:2px solid #e60012;
-padding-bottom:10px;
-
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin: 0;
 }
 
-ul{
+.logo span { color: var(--primary); }
 
-list-style:none;
-padding:0;
+.status-bar { font-size: 0.8rem; display: flex; align-items: center; gap: 10px; }
+.online-dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; }
 
+/* Banner */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
-li{
+.container { max-width: 1000px; margin: -30px auto 40px; padding: 0 20px; }
 
-padding:10px;
-border-bottom:1px solid #eee;
-cursor:pointer;
-
+/* Listas Pro */
+.list-section {
+    background: var(--white);
+    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-li:hover{
-
-background:#f7f7f7;
-
+.category-title {
+    margin: 0;
+    padding: 20px;
+    font-size: 1.2rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.pedido{
+.border-3ds { border-bottom: 4px solid var(--primary); }
+.border-wii { border-bottom: 4px solid var(--wii-blue); }
 
-text-align:center;
-padding:40px;
+.text-list { list-style: none; padding: 0; margin: 0; }
 
+.text-list li {
+    padding: 18px 25px;
+    border-bottom: 1px solid #eee;
+    font-weight: 400;
+    transition: all 0.3s;
+    cursor: default;
 }
 
-input,select{
-
-padding:10px;
-margin:10px;
-width:220px;
-border-radius:5px;
-border:1px solid #ccc;
-
+.text-list li:hover {
+    background: #f8f9fa;
+    padding-left: 35px;
+    color: var(--primary);
 }
 
-button{
-
-padding:12px 20px;
-background:#e60012;
-border:none;
-border-radius:5px;
-color:white;
-cursor:pointer;
-
+/* Formulario WhatsApp Pro */
+.wa-section {
+    background: var(--dark-bg);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-button:hover{
+.wa-header { text-align: center; margin-bottom: 30px; }
+.wa-header h2 { color: var(--primary); font-family: 'Orbitron'; margin-bottom: 5px; }
 
-background:#c40010;
+.wa-grid { display: grid; gap: 20px; }
 
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+
+.input-group label { font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+
+input {
+    background: #222;
+    border: 1px solid #333;
+    padding: 15px;
+    color: white;
+    border-radius: 8px;
+    transition: 0.3s;
 }
 
-.panel{
+input:focus { outline: none; border-color: var(--primary); background: #2a2a2a; }
 
-display:none;
-text-align:center;
-padding:40px;
-background:white;
-border-top:3px solid #e60012;
-
+.btn-wa {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Orbitron';
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
 }
 
-.whatsapp{
+.btn-wa:hover { background: #ff1a1a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230, 0, 18, 0.4); }
 
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-font-size:28px;
-padding:15px;
-border-radius:50%;
-text-decoration:none;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-
-}
-
-.adminBtn{
-
-position:fixed;
-bottom:20px;
-left:20px;
-background:#333;
-color:white;
-border:none;
-padding:12px;
-border-radius:50%;
-cursor:pointer;
-
-}
-
-
-/* RESPONSIVE */
-
-@media (max-width:768px){
-
-.catalogo{
-
-flex-direction:column;
-align-items:center;
-
-}
-
-.consola{
-
-width:90%;
-
-}
-
-input,select{
-
-width:80%;
-
-}
-
-}
+footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }

@@ -1,13 +1,11 @@
-{
-  "n3ds": [
-    "Mario 1",
-    "Pokemon X",
-    "Pokemon Y",
-    "Pokemon Omega Ruby"
-  ],
-  "wii": [
-    "Mario K 4",
-    "Wii Sports",
-    "New Super Mario Bros Wii"
-  ]
-}
+[
+  { "titulo": "The Legend of Zelda: Ocarina of Time", "consola": "3DS" },
+  { "titulo": "Super smash bros", "consola": "3DS" },
+  { "titulo": "Animal Crossing", "consola": "3DS" },
+  { "titulo": "Mario Kart", "consola": "3DS" },
+  { "titulo": "pokemon rubi omega", "consola": "3DS" },
+  { "titulo": "Pokemon X/Y", "consola": "3DS" },
+  { "titulo": "Super Mario Galaxy 2", "consola": "Wii" },
+  { "titulo": "Super Mario Galaxy ", "consola": "Wii" },
+  { "titulo": "mario kart wii", "consola": "Wii" }
+]
